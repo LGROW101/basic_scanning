@@ -31,13 +31,14 @@
         }
 
         input[type="text"], select {
-            width: calc(100% - 20px);
+            width: calc(100% - 20px); /* ความกว้างเท่ากัน */
             padding: 10px;
             font-size: 16px;
             border-radius: 4px;
             border: 1px solid #ccc;
             margin-bottom: 10px;
         }
+        
 
         input[type="text"]::placeholder {
             color: #999;
@@ -92,7 +93,7 @@
     <h1>Scanner</h1>
     <form action="/scan_url" method="post" onsubmit="showLoading()">
         <label for="url">URL:</label>
-        <input type="text" id="url" name="url" required>
+        <input type="text" id="url" name="url" placeholder="Enter IP Address" required>
         
         <label for="scan_type">Select scan type:</label>
         <select id="scan_type" name="scan_type">
