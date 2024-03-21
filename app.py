@@ -14,15 +14,15 @@ def scan_url():
     url = request.form.get('url', '')
     scan_type = request.form.get('scan_type', '')
     
-    # ตรวจสอบว่า URL ไม่ว่างเปล่าหรือไม่
+   
     if not url:
         return redirect(url_for('index', error="Invalid URL format"))
     
-    # ตรวจสอบรูปแบบของ IP Address
+ 
     ip_pattern = re.compile(r'^(?:[0-9]{1,3}\.){3}[0-9]{1,3}$')
     if not ip_pattern.match(url):
         return redirect(url_for('index', error="Invalid IP Address format"))
-  
+  # scan  nmap 
     try:
         if scan_type == 'quick':
             nmap_result = subprocess.run(["nmap", "-sV", url], capture_output=True, text=True)
