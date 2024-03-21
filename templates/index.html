@@ -4,13 +4,107 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Scanner</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            margin: 0;
+            padding: 0;
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+
+        form {
+            max-width: 400px;
+            margin: 20px auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        label {
+            display: none;
+        }
+
+        input[type="text"], select {
+            width: calc(100% - 20px);
+            padding: 10px;
+            font-size: 16px;
+            border-radius: 4px;
+            border: 1px solid #ccc;
+            margin-bottom: 10px;
+        }
+
+        input[type="text"]::placeholder {
+            color: #999;
+        }
+
+        input[type="text"] + label {
+            position: relative;
+            top: -38px;
+            left: 10px;
+            font-size: 14px;
+            color: #333;
+            background-color: #fff;
+            padding: 0 5px;
+        }
+
+        button[type="submit"] {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            font-size: 16px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        button[type="submit"]:hover {
+            background-color: #0056b3;
+        }
+
+        .error-message {
+            text-align: center;
+            color: red;
+        }
+    </style>
+    <script>
+        var scanned = false;
+
+        function showLoading() {
+            if (!scanned) {
+                var loadingDiv = document.createElement('div');
+                loadingDiv.innerHTML = 'Loading...';
+                loadingDiv.style.textAlign = 'center';
+                document.body.appendChild(loadingDiv);
+                scanned = true;
+            }
+        }
+    </script>
 </head>
 <body>
     <h1>Scanner</h1>
-    <form action="/scan_url" method="post">
+    <form action="/scan_url" method="post" onsubmit="showLoading()">
         <label for="url">URL:</label>
         <input type="text" id="url" name="url" required>
-        <button type="submit">Scan</button>
+        
+        <label for="scan_type">Select scan type:</label>
+        <select id="scan_type" name="scan_type">
+            <option value="quick">Quick Scan</option>
+            <option value="full">Full Scan</option>
+        </select>
+        
+        <button type="submit">SCAN</button>
+
+        {% if error %}
+            <p class="error-message">{{ error }}</p>
+        {% endif %}
     </form>
 </body>
 </html>
